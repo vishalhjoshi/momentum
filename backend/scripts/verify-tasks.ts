@@ -1,6 +1,4 @@
 
-import { apiRequest } from './client';
-
 // Mock local storage for the test script
 const storage: Record<string, string> = {};
 global.localStorage = {
@@ -16,7 +14,7 @@ global.localStorage = {
 // For this script to run via `tsx`, we need to ensure fetch is available. Node 18+ has fetch.
 
 // Helper to print step results
-const log = (step: string, result: any) => console.log(`[${step}]`, JSON.stringify(result, null, 2));
+const log = (step: string, result: unknown) => console.log(`[${step}]`, JSON.stringify(result, null, 2));
 
 async function runTest() {
     const email = `tasktest_${Date.now()}@example.com`;

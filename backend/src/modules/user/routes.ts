@@ -28,7 +28,7 @@ export async function userRoutes(fastify: FastifyInstance) {
       // We can use a partial schema here if we imported one, but for now we'll trust the keys 
       // are filtered by the service or we allow what's passed. 
       // Ideally we should validte specific fields.
-      const data = request.body as any
+      const data = request.body as Record<string, unknown>
 
       // Allowlist of updateable fields to prevent mass assignment of restricted fields
       const allowedFields = [
@@ -44,7 +44,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         'insightsEnabled'
       ]
 
-      const updates: Record<string, any> = {}
+      const updates: Record<string, unknown> = {}
       for (const field of allowedFields) {
         if (data[field] !== undefined) {
           updates[field] = data[field]

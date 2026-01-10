@@ -11,7 +11,7 @@ interface GlowingCardProps {
 
 export const GlowingCard = ({ className, title, subtitle, icon, hue = 0 }: GlowingCardProps) => {
   return (
-    <div className={cn("glowing-card-outer", className)} style={{ "--hue": hue } as any}>
+    <div className={cn("glowing-card-outer", className)} style={{ "--hue": hue } as React.CSSProperties}>
       <div className="glowing-card-dot" />
       <div className="glowing-card-inner">
         <div className="glowing-card-ray" />

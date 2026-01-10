@@ -45,7 +45,7 @@ export function TaskItem({ task, isSubtask = false }: TaskItemProps) {
   const playSuccessSound = async () => {
     try {
       console.log('Attempting to play success sound...');
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) {
           console.error('Web Audio API not supported');
           return;

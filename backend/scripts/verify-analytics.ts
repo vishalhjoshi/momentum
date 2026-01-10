@@ -1,5 +1,5 @@
 
-import { apiRequest } from './client';
+
 
 // Mock storage
 const storage: Record<string, string> = {};

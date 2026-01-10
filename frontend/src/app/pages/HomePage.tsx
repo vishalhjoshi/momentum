@@ -17,10 +17,9 @@ export default function HomePage() {
     staleTime: 1000 * 60 * 2, // 2 minutes
   });
   
-  const displayName = (userData as any)?.name || user?.name || user?.email;
-
-  const taskStreak = (userData as any)?.taskStreakDays || 0;
-  const journalStreak = (userData as any)?.journalStreakDays || 0;
+  const displayName = userData?.name || user?.name || user?.email;
+  const taskStreak = userData?.taskStreakDays || 0;
+  const journalStreak = userData?.journalStreakDays || 0;
   
   return (
     <div className="min-h-screen bg-primary p-4 pb-24">

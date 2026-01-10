@@ -15,7 +15,7 @@ export async function createTask(userId: string, input: CreateTaskInput) {
 }
 
 export async function getTasks(userId: string, query: TaskQueryInput) {
-  const where: any = {
+  const where: Record<string, unknown> = {
     userId,
     deletedAt: null,
     parentTaskId: null, // Only fetch top-level tasks by default

@@ -60,14 +60,14 @@ export async function saveJournalEntry(userId: string, input: CreateJournalInput
 }
 
 export async function getJournalEntries(userId: string, query: JournalQueryInput) {
-    const where: any = { userId };
+    const where: Record<string, unknown> = { userId };
 
     if (query.startDate) {
-        where.entryDate = { ...where.entryDate, gte: new Date(query.startDate) };
+        where.entryDate = { ...(where.entryDate as object), gte: new Date(query.startDate) };
     }
 
     if (query.endDate) {
-        where.entryDate = { ...where.entryDate, lte: new Date(query.endDate) };
+        where.entryDate = { ...(where.entryDate as object), lte: new Date(query.endDate) };
     }
 
     const entries = await prisma.journalEntry.findMany({
@@ -103,7 +103,7 @@ export async function getJournalEntryByDate(userId: string, dateStr: string) {
     return entry;
 }
 
-export async function updateJournalEntry(userId: string, dateStr: string, input: any) {
+export async function updateJournalEntry(userId: string, dateStr: string, input: Record<string, unknown>) {
     // Validate date format
     if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
         throw new AppError('Invalid date format. Use YYYY-MM-DD', 400);

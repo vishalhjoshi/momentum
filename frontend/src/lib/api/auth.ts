@@ -5,7 +5,7 @@ export const authApi = {
   async signUp(credentials: SignUpCredentials): Promise<AuthResponse> {
     // Backend only accepts email and password, not name
     const response = await apiRequest<{
-      user: { id: string; email: string }
+      user: { id: string; email: string; name?: string }
       token: string
       refreshToken: string
       message: string
@@ -22,7 +22,7 @@ export const authApi = {
       user: {
         id: response.user.id,
         email: response.user.email,
-        name: (response.user as any).name,
+        name: response.user.name,
       },
       token: response.token,
     }
@@ -30,7 +30,7 @@ export const authApi = {
 
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     const response = await apiRequest<{
-      user: { id: string; email: string }
+      user: { id: string; email: string; name?: string }
       token: string
       refreshToken: string
     }>('/auth/login', {
@@ -42,7 +42,7 @@ export const authApi = {
       user: {
         id: response.user.id,
         email: response.user.email,
-        name: (response.user as any).name,
+        name: response.user.name,
       },
       token: response.token,
     }
@@ -115,7 +115,7 @@ export const authApi = {
     quietHoursEnd: string;
     darkModeEnabled: boolean;
     insightsEnabled: boolean;
-  }>): Promise<any> {
+  }>): Promise<unknown> {
     const response = await apiRequest('/user/preferences', {
       method: 'PATCH',
       body: JSON.stringify(data),

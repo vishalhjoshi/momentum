@@ -21,7 +21,6 @@ export async function runDailyRollover(testDate?: Date) {
       // 2. Check if it's midnight (00:00) in this timezone
       // We check for the hour 0. Since this runs hourly, it should catch the midnight hour.
       const now = testDate || new Date()
-      // @ts-ignore - date-fns-tz v3 type definition issue
       const zonedTime = toZonedTime(now, timezone)
       const currentHour = zonedTime.getHours()
 
@@ -43,7 +42,7 @@ export async function runDailyRollover(testDate?: Date) {
         // 4. Perform Rollover Logic
 
         // Transaction to ensure atomicity
-        await prisma.$transaction(async (tx: any) => {
+        await prisma.$transaction(async (tx) => {
           // 1. "Clear Today" -> "Someday"
           // Move incomplete tasks with deadline: TODAY to deadline: SOMEDAY
           const demoted = await tx.task.updateMany({

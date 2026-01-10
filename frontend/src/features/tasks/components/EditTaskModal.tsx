@@ -4,7 +4,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { useToast } from '@/components/ui/ToastProvider';
-import { Task, UpdateTaskInput } from '../types';
+import { Task, UpdateTaskInput, TaskDeadline } from '../types';
 
 interface EditTaskModalProps {
   isOpen: boolean;
@@ -74,7 +74,7 @@ export function EditTaskModal({ isOpen, onClose, task }: EditTaskModalProps) {
           <select
             className="w-full px-3 py-2 bg-surface text-text-primary border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
             value={formData.deadline}
-            onChange={(e) => setFormData({ ...formData, deadline: e.target.value as any })}
+            onChange={(e) => setFormData({ ...formData, deadline: e.target.value as TaskDeadline })}
           >
             <option value="TODAY">Today</option>
             <option value="TOMORROW">Tomorrow</option>

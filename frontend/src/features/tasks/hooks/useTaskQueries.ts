@@ -25,7 +25,7 @@ export function useCreateTaskMutation() {
         onSuccess: (newTask) => {
             // If this is a subtask, update the parent task's subtasks array
             if (newTask.parentTaskId) {
-                queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+                queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                     if (!oldData) return oldData;
                     if (Array.isArray(oldData)) {
                         return oldData.map((task: Task) => {
@@ -55,7 +55,7 @@ export function useUpdateTaskMutation() {
             taskApi.updateTask(id, data),
         onSuccess: (updatedTask) => {
             // Update specific task in cache if it exists in lists
-            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                 if (!oldData) return oldData;
                 if (Array.isArray(oldData)) {
                     return oldData.map((task: Task) => task.id === updatedTask.id ? updatedTask : task);
@@ -96,7 +96,7 @@ export function useDeleteTaskMutation() {
             }
 
             // Optimistically update to remove the task
-            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                 if (!oldData) return oldData;
                 if (Array.isArray(oldData)) {
                     // If deleting a parent task, remove it (backend will handle subtasks)
@@ -149,7 +149,7 @@ export function useCompleteTaskMutation() {
             const previousTasks = queryClient.getQueryData(TASK_KEYS.all);
 
             // Optimistically update to the new value
-            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                 if (!oldData) return oldData;
                 if (Array.isArray(oldData)) {
                     return oldData.map((task: Task) =>
@@ -174,7 +174,7 @@ export function useCompleteTaskMutation() {
         },
         onSuccess: (updatedTask) => {
             // Update with server response to be sure
-            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                 if (!oldData) return oldData;
                 if (Array.isArray(oldData)) {
                     return oldData.map((task: Task) => {
@@ -221,7 +221,7 @@ export function useRescheduleTaskMutation() {
             taskApi.rescheduleTask(id, deadline),
         onSuccess: (updatedTask) => {
             // Update specific task in cache
-            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: any) => {
+            queryClient.setQueriesData({ queryKey: TASK_KEYS.all }, (oldData: unknown) => {
                 if (!oldData) return oldData;
                 if (Array.isArray(oldData)) {
                     return oldData.map((task: Task) => task.id === updatedTask.id ? updatedTask : task);

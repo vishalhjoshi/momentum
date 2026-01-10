@@ -64,7 +64,7 @@ export async function getAnalyticsSummary(userId: string) {
 
     // Check yesterday and backwards
     let dayCursor = subDays(today, 1);
-    while (true) {
+    for (let i = 0; i < 30; i++) {
       const cursorStr = format(dayCursor, 'yyyy-MM-dd');
       if (completedRefDates.has(cursorStr)) {
         streak++;

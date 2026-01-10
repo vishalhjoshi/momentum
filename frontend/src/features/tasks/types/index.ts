@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const taskStatusSchema = z.enum(['PENDING', 'COMPLETED', 'DELETED']);
 export const taskDeadlineSchema = z.enum(['TODAY', 'TOMORROW', 'SOMEDAY']);
 
-export const taskSchema: z.ZodType<any> = z.lazy(() => z.object({
+export const taskSchema: z.ZodType<unknown> = z.lazy(() => z.object({
     id: z.string(),
     userId: z.string(),
     title: z.string(),

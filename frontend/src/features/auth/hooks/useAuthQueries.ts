@@ -68,7 +68,7 @@ export function useUpdatePreferencesMutation() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (prefs: Partial<any>) => authApi.updatePreferences(prefs),
+        mutationFn: (prefs: Partial<Record<string, unknown>>) => authApi.updatePreferences(prefs),
         onSuccess: (updatedUser) => {
             // Optimistically update the cache with the new user data
             // This ensures all components listening to 'auth', 'user' get the update immediately
