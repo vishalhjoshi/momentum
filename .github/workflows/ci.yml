@@ -38,5 +38,8 @@ jobs:
     - name: Build Frontend
       run: cd frontend && pnpm build
 
+    - name: Create .env file
+      run: cp .env.example .env
+
     - name: Build Docker Images (Dry Run)
       run: docker compose build
