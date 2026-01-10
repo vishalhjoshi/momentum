@@ -4,7 +4,7 @@ FROM node:20-alpine as build
 WORKDIR /app
 
 # Install pnpm
-npm install -g pnpm
+RUN npm install -g pnpm
 
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
