@@ -105,7 +105,7 @@ export async function getAnalyticsSummary(userId: string) {
   // Format for frontend chart
   const moodMap: Record<string, number> = { 'ROUGH': 1, 'OKAY': 2, 'GOOD': 3, 'GREAT': 4 };
 
-  const moodTrend = journalEntries.map(entry => ({
+  const moodTrend = journalEntries.map((entry: { entryDate: Date; mood: string | null; energy: number | null }) => ({
     date: format(entry.entryDate, 'MM-dd'),
     moodScore: entry.mood ? moodMap[entry.mood] : 0,
     energy: entry.energy || 0,

@@ -42,7 +42,7 @@ export async function runDailyRollover(testDate?: Date) {
         // 4. Perform Rollover Logic
 
         // Transaction to ensure atomicity
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
           // 1. "Clear Today" -> "Someday"
           // Move incomplete tasks with deadline: TODAY to deadline: SOMEDAY
           const demoted = await tx.task.updateMany({

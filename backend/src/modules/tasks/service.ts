@@ -118,12 +118,12 @@ export async function completeTask(userId: string, taskId: string) {
 
   // If this is a parent task with incomplete subtasks, complete all subtasks first
   if (task.subtasks && task.subtasks.length > 0) {
-    const incompleteSubtasks = task.subtasks.filter(st => st.status !== 'COMPLETED');
+    const incompleteSubtasks = task.subtasks.filter((st: { status: string }) => st.status !== 'COMPLETED');
     if (incompleteSubtasks.length > 0) {
       // Complete all incomplete subtasks
       await prisma.task.updateMany({
         where: {
-          id: { in: incompleteSubtasks.map(st => st.id) },
+          id: { in: incompleteSubtasks.map((st: { id: string }) => st.id) },
           userId,
         },
         data: {
