@@ -88,7 +88,7 @@ export async function deleteTask(userId: string, taskId: string) {
   if (task.subtasks && task.subtasks.length > 0) {
     await prisma.task.updateMany({
       where: {
-        id: { in: task.subtasks.map(st => st.id) },
+        id: { in: task.subtasks.map((st: { id: string }) => st.id) },
         userId,
       },
       data: { deletedAt: new Date() },
@@ -169,7 +169,7 @@ export async function completeTask(userId: string, taskId: string) {
     });
 
     if (parentTask && parentTask.subtasks.length > 0) {
-      const allSubtasksCompleted = parentTask.subtasks.every(st => st.status === 'COMPLETED');
+      const allSubtasksCompleted = parentTask.subtasks.every((st: { status: string }) => st.status === 'COMPLETED');
       if (allSubtasksCompleted && parentTask.status !== 'COMPLETED') {
         // Auto-complete parent task
         await prisma.task.update({

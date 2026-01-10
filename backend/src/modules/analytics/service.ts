@@ -24,7 +24,7 @@ export async function getAnalyticsSummary(userId: string) {
 
   // Group by date (YYYY-MM-DD)
   const completedRefDates = new Set(
-    recentTasks.map(t => format(t.updatedAt, 'yyyy-MM-dd'))
+    recentTasks.map((t: { updatedAt: Date }) => format(t.updatedAt, 'yyyy-MM-dd'))
   );
 
   let currentStreak = 0;
@@ -89,7 +89,7 @@ export async function getAnalyticsSummary(userId: string) {
   });
 
   const totalTasks = tasksLast7Days.length;
-  const completedTasks = tasksLast7Days.filter(t => t.status === 'COMPLETED').length;
+  const completedTasks = tasksLast7Days.filter((t: { status: string }) => t.status === 'COMPLETED').length;
   const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   // 3. Mood Trend (Last 7 Days)
