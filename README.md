@@ -103,6 +103,33 @@ The app will be available at:
 - Backend API: http://localhost:3000
 - API Health Check: http://localhost:3000/healthz
 
+## 🐳 Docker Deployment
+
+You can run the entire application stack (Frontend + Backend + Database) using Docker.
+
+1.  **Configure Environment**:
+    Copy `.env.example` to `.env` in the root directory.
+    ```bash
+    cp .env.example .env
+    ```
+    Modify the values in `.env` if desired (optional for local dev).
+
+2.  **Run with Docker Compose**:
+    ```bash
+    docker compose up --build
+    ```
+    This will start:
+    - **Frontend:** http://localhost
+    - **Backend:** Internal container (proxied via Frontend)
+    - **PostgreSQL:** Internal container
+
+3.  **Stop**:
+    ```bash
+    docker compose down
+    # To remove volumes (reset db):
+    docker compose down -v
+    ```
+
 ## 📚 Development
 
 ### Frontend Commands
