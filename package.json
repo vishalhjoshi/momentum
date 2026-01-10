@@ -1,0 +1,25 @@
+{
+  "name": "momentum-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Momentum - ADHD-Friendly Task Management & Daily Journal",
+  "scripts": {
+    "dev:backend": "pnpm --filter momentum-backend dev",
+    "dev:frontend": "pnpm --filter momentum-frontend dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  },
+  "keywords": [
+    "adhd",
+    "productivity",
+    "journal",
+    "tasks",
+    "typescript",
+    "react",
+    "node"
+  ],
+  "author": "Vishal",
+  "license": "MIT",
+  "packageManager": "pnpm@10.11.0"
+}

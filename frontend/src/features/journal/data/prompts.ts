@@ -1,0 +1,18 @@
+export const JOURNAL_PROMPTS = [
+    "What's one thing I did well today?",
+    "Brain dump: What's on my mind right now?",
+    "What's the biggest stressor I'm carrying, and can I put it down for 5 minutes?",
+    "What gave me energy today?",
+    "What drained my energy today?",
+    "One small win I had today was...",
+    "How did I take care of myself today?",
+    "What does my body need right now?",
+    "If I could do one thing differently tomorrow, it would be...",
+    "What am I grateful for right now?",
+    "What is one thing I'm looking forward to?",
+    "Describe today in three words.",
+    "Did I encounter any blocks today? How did I handle them?",
+    "What's a distraction that kept pulling me away today?",
+    "How would I describe my focus level today?",
+    "Just write whatever comes to mind for 2 minutes...",
+];

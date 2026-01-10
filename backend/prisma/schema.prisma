@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?  @map("name")
+  passwordHash String @map("password_hash")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") // Soft delete
+
+  // Preferences stored as JSON (or could be separate table)
+  timeZone            String  @default("America/New_York") @map("time_zone")
+  dailyReminderTime   String  @default("09:00") @map("daily_reminder_time")
+  eveningCheckInTime  String  @default("18:00") @map("evening_check_in_time")
+  notificationsEnabled Boolean @default(true) @map("notifications_enabled")
+  soundEnabled        Boolean @default(true) @map("sound_enabled")
+  hapticEnabled       Boolean @default(true) @map("haptic_enabled")
+  quietHoursStart     String  @default("21:00") @map("quiet_hours_start")
+  quietHoursEnd       String  @default("08:00") @map("quiet_hours_end")
+  darkModeEnabled     Boolean @default(true) @map("dark_mode_enabled")
+  insightsEnabled     Boolean @default(true) @map("insights_enabled")
+
+  // Streak tracking
+  taskStreakDays          Int       @default(0) @map("task_streak_days")
+  journalStreakDays       Int       @default(0) @map("journal_streak_days")
+  lastTaskCompletionDate  DateTime? @map("last_task_completion_date")
+  lastJournalDate         DateTime? @map("last_journal_date")
+  lastLoginAt             DateTime? @map("last_login_at")
+
+  // Relations
+  tasks           Task[]
+  journalEntries  JournalEntry[]
+  analyticsEvents AnalyticsEvent[]
+  notificationSubscriptions NotificationSubscription[]
+
+  @@map("users")
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  status      TaskStatus @default(PENDING)
+  deadline    TaskDeadline @default(TODAY)
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") // Soft delete
+
+  // Subtask support (self-referential)
+  parentTaskId String?  @map("parent_task_id")
+  parentTask   Task?    @relation("TaskSubtasks", fields: [parentTaskId], references: [id])
+  subtasks     Task[]   @relation("TaskSubtasks")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, status, deadline])
+  @@index([parentTaskId])
+  @@map("tasks")
+}
+
+enum TaskStatus {
+  PENDING
+  COMPLETED
+  DELETED
+}
+
+enum TaskDeadline {
+  TODAY
+  TOMORROW
+  SOMEDAY
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  entryDate DateTime @map("entry_date") // Date only (stored as DateTime)
+  content   String   @db.Text
+  mood      Mood?
+  energy    Int?     // 0-10 scale
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, entryDate])
+  @@index([userId, entryDate])
+  @@map("journal_entries")
+}
+
+enum Mood {
+  ROUGH
+  OKAY
+  GOOD
+  GREAT
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  eventType EventType @map("event_type")
+  eventDate DateTime @default(now()) @map("event_date")
+  metadata  Json?    // Flexible JSON for event context
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, eventDate])
+  @@index([eventType, eventDate])
+  @@map("analytics_events")
+}
+
+enum EventType {
+  TASK_CREATED
+  TASK_COMPLETED
+  JOURNAL_ENTRY
+  APP_OPENED
+}
+
+model NotificationSubscription {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  endpoint     String   @unique
+  p256dh       String   // Public key
+  auth         String   // Auth secret
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("notification_subscriptions")
+}
+
