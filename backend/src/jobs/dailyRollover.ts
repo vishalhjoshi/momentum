@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma'
+import { Prisma } from '@prisma/client'
 import { logger } from '../lib/logger'
 import { toZonedTime } from 'date-fns-tz'
 
@@ -42,7 +43,7 @@ export async function runDailyRollover(testDate?: Date) {
         // 4. Perform Rollover Logic
 
         // Transaction to ensure atomicity
-        await prisma.$transaction(async (tx: any) => {
+        await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
           // 1. "Clear Today" -> "Someday"
           // Move incomplete tasks with deadline: TODAY to deadline: SOMEDAY
           const demoted = await tx.task.updateMany({
