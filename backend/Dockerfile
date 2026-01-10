@@ -22,8 +22,11 @@ RUN npx prisma generate
 # Expose port
 EXPOSE 3000
 
-# Make start script executable
-RUN chmod +x start.sh
+# Make start script executable and chown to node user
+RUN chmod +x start.sh && chown node:node /app/start.sh
+
+# Switch to non-root user
+USER node
 
 # Start the application
 CMD ["./start.sh"]

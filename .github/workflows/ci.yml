@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+
+    - name: Install Dependencies
+      run: pnpm install
+
+    - name: Lint
+      # Assuming there is a lint script in the root package.json or we run for each
+      run: |
+        cd backend && pnpm lint
+        cd ../frontend && pnpm lint
+
+    - name: Build Backend
+      run: cd backend && pnpm build
+
+    - name: Build Frontend
+      run: cd frontend && pnpm build
+
+    - name: Build Docker Images (Dry Run)
+      run: docker compose build
