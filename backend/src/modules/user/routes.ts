@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware.js'
-import { getUserProfile } from './service.js'
+import { getUserProfile, updateUserPreferences } from './service.js'
 
 export async function userRoutes(fastify: FastifyInstance) {
   // All user endpoints require authentication
@@ -55,7 +55,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         return reply.code(400).send({ error: 'No valid preference fields provided' })
       }
 
-      const user = await import('./service').then(s => s.updateUserPreferences(id, updates))
+      const user = await updateUserPreferences(id, updates)
       return reply.code(200).send(user)
     }
   )

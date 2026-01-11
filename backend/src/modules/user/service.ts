@@ -12,11 +12,15 @@ export async function getUserProfile(userId: string) {
             taskStreakDays: true,
             journalStreakDays: true,
             timeZone: true,
-            darkModeEnabled: true,
+            dailyReminderTime: true,
+            eveningCheckInTime: true,
             notificationsEnabled: true,
             soundEnabled: true,
             hapticEnabled: true,
-            // Add other preference fields as needed
+            quietHoursStart: true,
+            quietHoursEnd: true,
+            darkModeEnabled: true,
+            insightsEnabled: true,
         },
     })
 

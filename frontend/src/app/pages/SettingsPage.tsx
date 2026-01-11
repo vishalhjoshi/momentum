@@ -36,7 +36,7 @@ export default function SettingsPage() {
   if (isLoading) return <div className="p-8 text-center">Loading settings...</div>;
 
   return (
-    <div className="min-h-screen p-4 pb-24">
+    <div className="min-h-screen bg-bg-primary p-4 pb-24">
       <div className="max-w-2xl mx-auto">
         <header className="mb-8 flex items-center gap-4">
             <Link to="/" className="p-2 hover:bg-surface-hover rounded-full transition-colors">
