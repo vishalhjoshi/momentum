@@ -1,8 +1,8 @@
 
-import { prisma } from '@/lib/prisma';
-import { CreateJournalInput, JournalQueryInput } from './schemas';
-import { AppError } from '@/lib/errors';
-import { updateJournalStreak } from '@/lib/streaks';
+import { prisma } from '@/lib/prisma.js';
+import { CreateJournalInput, JournalQueryInput } from './schemas.js';
+import { AppError } from '@/lib/errors.js';
+import { updateJournalStreak } from '@/lib/streaks.js';
 
 export async function saveJournalEntry(userId: string, input: CreateJournalInput) {
     // Determine date (default to today)

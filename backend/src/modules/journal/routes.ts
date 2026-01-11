@@ -1,9 +1,9 @@
 
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware';
-import { saveJournalEntry, getJournalEntries, getJournalEntryByDate, updateJournalEntry, deleteJournalEntry } from './service';
-import { createJournalSchema, journalQuerySchema, updateJournalSchema } from './schemas';
-import { AppError } from '@/lib/errors';
+import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware.js';
+import { saveJournalEntry, getJournalEntries, getJournalEntryByDate, updateJournalEntry, deleteJournalEntry } from './service.js';
+import { createJournalSchema, journalQuerySchema, updateJournalSchema } from './schemas.js';
+import { AppError } from '@/lib/errors.js';
 
 export async function journalRoutes(fastify: FastifyInstance) {
   fastify.addHook('preHandler', authGuard);

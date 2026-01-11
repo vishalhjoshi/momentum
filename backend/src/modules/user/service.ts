@@ -1,6 +1,6 @@
 
-import { prisma } from '@/lib/prisma'
-import { AppError } from '@/lib/errors'
+import { prisma } from '@/lib/prisma.js'
+import { AppError } from '@/lib/errors.js'
 
 export async function getUserProfile(userId: string) {
     const user = await prisma.user.findUnique({

@@ -1,12 +1,13 @@
 import { FastifyInstance } from 'fastify'
-import { signUp, login, requestPasswordReset, resetPassword } from './service'
+import { ZodError } from 'zod'
+import { signUp, login, requestPasswordReset, resetPassword } from './service.js'
 import {
   forgotPasswordSchema,
   loginSchema,
   resetPasswordSchema,
   signUpSchema,
-} from './schemas'
-import { AppError } from '@/lib/errors'
+} from './schemas.js'
+import { AppError } from '@/lib/errors.js'
 
 export async function authRoutes(fastify: FastifyInstance) {
   fastify.post('/signup', async (request, reply) => {
@@ -20,8 +21,12 @@ export async function authRoutes(fastify: FastifyInstance) {
         message: 'Account created',
       })
     } catch (error) {
+      console.error('Signup Error:', error)
       if (error instanceof AppError) {
         return reply.code(error.statusCode).send({ error: error.message, code: error.code })
+      }
+      if (error instanceof ZodError) {
+        return reply.code(400).send({ error: 'Validation failed', details: error.errors })
       }
       return reply.code(400).send({ error: 'Invalid signup data' })
     }
@@ -39,6 +44,9 @@ export async function authRoutes(fastify: FastifyInstance) {
     } catch (error) {
       if (error instanceof AppError) {
         return reply.code(error.statusCode).send({ error: error.message, code: error.code })
+      }
+      if (error instanceof ZodError) {
+        return reply.code(400).send({ error: 'Validation failed', details: error.errors })
       }
       return reply.code(400).send({ error: 'Invalid login data' })
     }

@@ -1,6 +1,6 @@
-import { prisma } from '../lib/prisma'
+import { prisma } from '../lib/prisma.js'
 import { Prisma } from '@prisma/client'
-import { logger } from '../lib/logger'
+import { logger } from '../lib/logger.js'
 import { toZonedTime } from 'date-fns-tz'
 
 export async function runDailyRollover(testDate?: Date) {

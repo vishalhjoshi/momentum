@@ -1,10 +1,10 @@
 
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware';
-import { createTask, getTasks, getTask, updateTask, deleteTask, completeTask, rescheduleTask } from './service';
-import { createTaskSchema, updateTaskSchema, taskQuerySchema } from './schemas';
+import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware.js';
+import { createTask, getTasks, getTask, updateTask, deleteTask, completeTask, rescheduleTask } from './service.js';
+import { createTaskSchema, updateTaskSchema, taskQuerySchema } from './schemas.js';
 import { z } from 'zod';
-import { AppError } from '@/lib/errors';
+import { AppError } from '@/lib/errors.js';
 
 export async function taskRoutes(fastify: FastifyInstance) {
   fastify.addHook('preHandler', authGuard);

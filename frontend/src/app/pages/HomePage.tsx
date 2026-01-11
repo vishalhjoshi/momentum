@@ -22,7 +22,7 @@ export default function HomePage() {
   const journalStreak = userData?.journalStreakDays || 0;
   
   return (
-    <div className="min-h-screen bg-primary p-4 pb-24">
+    <div className="min-h-screen p-4 pb-24">
       <div className="max-w-2xl mx-auto">
         <header className="mb-8 flex justify-between items-start">
           <div className="flex-1 mr-4">

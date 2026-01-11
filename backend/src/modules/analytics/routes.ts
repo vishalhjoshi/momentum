@@ -1,7 +1,7 @@
 
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware';
-import { getAnalyticsSummary } from './service';
+import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware.js';
+import { getAnalyticsSummary } from './service.js';
 
 export async function analyticsRoutes(fastify: FastifyInstance) {
   fastify.addHook('preHandler', authGuard);

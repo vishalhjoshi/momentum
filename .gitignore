@@ -41,7 +41,8 @@ pnpm-debug.log*
 Thumbs.db
 
 # Prisma
-prisma/migrations/
+# Note: migrations should be committed to git
+# Only ignore the .env file in the prisma directory
 
 # Temporary files
 *.tmp

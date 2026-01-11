@@ -1,8 +1,8 @@
 
-import { prisma } from '@/lib/prisma';
-import { CreateTaskInput, TaskQueryInput, UpdateTaskInput } from './schemas';
-import { AppError } from '@/lib/errors';
-import { updateTaskStreak } from '@/lib/streaks';
+import { prisma } from '@/lib/prisma.js';
+import { CreateTaskInput, TaskQueryInput, UpdateTaskInput } from './schemas.js';
+import { AppError } from '@/lib/errors.js';
+import { updateTaskStreak } from '@/lib/streaks.js';
 
 export async function createTask(userId: string, input: CreateTaskInput) {
   const task = await prisma.task.create({

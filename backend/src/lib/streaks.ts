@@ -1,4 +1,4 @@
-import { prisma } from './prisma';
+import { prisma } from './prisma.js';
 import { startOfDay, differenceInDays } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 

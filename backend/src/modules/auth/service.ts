@@ -1,19 +1,19 @@
 import bcrypt from 'bcryptjs';
-import { prisma } from '@/lib/prisma'
-import { logger } from '@/lib/logger'
+import { prisma } from '@/lib/prisma.js'
+import { logger } from '@/lib/logger.js'
 import {
   signAccessToken,
   signRefreshToken,
   signPasswordResetToken,
   verifyPasswordResetToken,
-} from './jwt'
+} from './jwt.js'
 import {
   ForgotPasswordInput,
   LoginInput,
   ResetPasswordInput,
   SignUpInput,
-} from './schemas'
-import { AppError, UnauthorizedError } from '@/lib/errors'
+} from './schemas.js'
+import { AppError, UnauthorizedError } from '@/lib/errors.js'
 
 const BCRYPT_ROUNDS = 12
 

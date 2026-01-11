@@ -1,5 +1,5 @@
 
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma.js';
 import { startOfDay, subDays, format } from 'date-fns';
 
 export async function getAnalyticsSummary(userId: string) {

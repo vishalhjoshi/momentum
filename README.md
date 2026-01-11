@@ -130,6 +130,28 @@ You can run the entire application stack (Frontend + Backend + Database) using D
     docker compose down -v
     ```
 
+## 🚀 Production Deployment
+
+For deploying to production environments:
+
+1. **Validate your app is deployment-ready**:
+   ```bash
+   pnpm validate-deployment
+   ```
+
+2. **See deployment guides**:
+   - [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) - 🚀 **Deploy in under 10 minutes** (recommended starting point)
+   - [DEPLOYMENT.md](./DEPLOYMENT.md) - Complete deployment guide for Railway, Render, Fly.io, DigitalOcean, AWS, and more
+   - [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md) - Pre-deployment checklist
+   - [ENV_VARS.md](./ENV_VARS.md) - Environment variables reference and configuration guide
+
+The app is production-ready with:
+- ✅ Optimized multi-stage Docker builds
+- ✅ Security headers configured
+- ✅ Health check endpoints
+- ✅ Automatic database migrations
+- ✅ Production-ready nginx configuration
+
 ## 📚 Development
 
 ### Frontend Commands
@@ -163,10 +185,18 @@ pnpm type-check   # TypeScript type checking
 
 Testing infrastructure is set up but tests need to be implemented. See [IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md) Phase 7 for testing strategy.
 
-## 📖 Documentation
+## 📚 Documentation
 
+### Deployment Guides
+- **[QUICK_DEPLOY.md](./QUICK_DEPLOY.md)** - 🚀 Deploy in under 10 minutes (Railway, Render, Docker)
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Complete deployment guide for all platforms
+- **[DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)** - Pre-deployment checklist
+- **[ENV_VARS.md](./ENV_VARS.md)** - Environment variables reference and security best practices
+
+### Development Guides
 - **[IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md)** - 16-week development plan with milestones and tasks
 - **[TECH_STACK.md](./TECH_STACK.md)** - Technology choices and configuration reference
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contributing guidelines
 - **[PRD.md](./PRD.md)** - Product Requirements Document (if available)
 
 ## 🎨 Design Principles

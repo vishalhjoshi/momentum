@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { verifyAccessToken } from './jwt'
-import { UnauthorizedError } from '@/lib/errors'
+import { verifyAccessToken } from './jwt.js'
+import { UnauthorizedError } from '@/lib/errors.js'
 
 export interface AuthenticatedRequest extends FastifyRequest {
   user: {
@@ -19,7 +19,7 @@ export async function authGuard(request: FastifyRequest, _reply: FastifyReply) {
 
   try {
     const payload = verifyAccessToken(token)
-    ;(request as AuthenticatedRequest).user = { id: payload.userId }
+      ; (request as AuthenticatedRequest).user = { id: payload.userId }
   } catch {
     throw new UnauthorizedError()
   }

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware'
-import { getUserProfile } from './service'
+import { authGuard, AuthenticatedRequest } from '@/modules/auth/middleware.js'
+import { getUserProfile } from './service.js'
 
 export async function userRoutes(fastify: FastifyInstance) {
   // All user endpoints require authentication
