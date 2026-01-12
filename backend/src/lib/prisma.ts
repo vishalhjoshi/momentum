@@ -4,6 +4,20 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
+// Safely construct DATABASE_URL if components are available
+// This handles special characters in password/user that might break simple interpolation
+if (process.env.POSTGRES_USER && process.env.POSTGRES_PASSWORD && process.env.POSTGRES_DB) {
+  const user = encodeURIComponent(process.env.POSTGRES_USER)
+  const password = encodeURIComponent(process.env.POSTGRES_PASSWORD)
+  const host = process.env.POSTGRES_HOST || 'postgres'
+  const port = process.env.POSTGRES_PORT || '5432'
+  const db = encodeURIComponent(process.env.POSTGRES_DB)
+  const schema = 'public'
+
+  process.env.DATABASE_URL = `postgres://${user}:${password}@${host}:${port}/${db}?schema=${schema}`
+  console.log('Constructed safe DATABASE_URL from environment variables')
+}
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({

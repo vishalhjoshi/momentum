@@ -1,0 +1,21 @@
+{level:30,time:1768225554859,pid:67,hostname:e15f74bf8c29,reqId:req-j,req:{method:POST,url:/api/auth/signup,hostname:100.95.193.104,remoteAddress:172.20.0.4,remotePort:40810},msg:incoming request}
+prisma:error
+Invalid  invocation:
+
+
+The provided database string is invalid. Error parsing connection string: invalid port number in database URL. Please refer to the documentation in https://www.prisma.io/docs/reference/database-reference/connection-urls for constructing a correct connection string. In some cases, certain characters must be escaped. Please check the string for any illegal characters.
+Signup Error: PrismaClientInitializationError:
+Invalid  invocation:
+
+
+The provided database string is invalid. Error parsing connection string: invalid port number in database URL. Please refer to the documentation in https://www.prisma.io/docs/reference/database-reference/connection-urls for constructing a correct connection string. In some cases, certain characters must be escaped. Please check the string for any illegal characters.
+    at .handleRequestError (/app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/runtime/library.js:121:7615)
+    at .handleAndLogRequestError (/app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/runtime/library.js:121:6623)
+    at .request (/app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/runtime/library.js:121:6307)
+    at async l (/app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/runtime/library.js:130:9633)
+    at async signUp (file:///app/dist/modules/auth/service.js:8:22)
+    at async Object.<anonymous> (file:///app/dist/modules/auth/routes.js:9:28) {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+{level:30,time:1768225554905,pid:67,hostname:e15f74bf8c29,reqId:req-j,res:{statusCode:400},responseTime:45.61866599973291,msg:request completed}
