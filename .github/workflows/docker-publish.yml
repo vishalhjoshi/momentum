@@ -55,6 +55,8 @@ jobs:
         with:
           context: ./frontend
           push: true
+          build-args: |
+            VITE_API_URL=/api
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/momentum-frontend:latest
             ${{ github.ref_type == 'tag' && format('{0}/momentum-frontend:{1}', secrets.DOCKERHUB_USERNAME, github.ref_name) || '' }}
