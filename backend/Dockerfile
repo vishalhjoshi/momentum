@@ -4,16 +4,16 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm@10.11.0
+RUN npm install -g pnpm@latest
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY backend/package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY . .
+COPY backend .
 
 # Generate Prisma Client
 RUN npx prisma generate

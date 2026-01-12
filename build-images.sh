@@ -2,7 +2,7 @@
 set -e
 
 echo "Building Momentum Backend..."
-docker build -t momentum-backend:latest ./backend
+docker build -f backend/Dockerfile -t momentum-backend:latest .
 
 echo "Building Momentum Frontend..."
 docker build -f frontend/Dockerfile -t momentum-frontend:latest .

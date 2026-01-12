@@ -4,7 +4,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm@10.11.0
+RUN npm install -g pnpm@latest
 
 # Copy package files
 COPY frontend/package.json pnpm-lock.yaml ./
