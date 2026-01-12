@@ -17,7 +17,10 @@ async function main() {
         console.log('--------------------')
 
         // Check specifically for users table
-        const tables = (tableResult as any[]).map(t => t.table_name)
+        interface TableResult {
+            table_name: string
+        }
+        const tables = (tableResult as TableResult[]).map(t => t.table_name)
         if (tables.includes('users')) {
             console.log('SUCCESS: "users" table exists.')
 
