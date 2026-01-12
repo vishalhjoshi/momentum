@@ -102,5 +102,18 @@ jobs:
           scp docker-compose.prod.yml $SSH_USER@$SSH_HOST:/home/vishal/momentum/docker-compose.yml
 
           # Execute deployment
-          ssh $SSH_USER@$SSH_HOST "cd /home/vishal/momentum && export DOCKER_USERNAME=$DOCKER_USERNAME && docker compose pull && docker compose up -d"
+          ssh $SSH_USER@$SSH_HOST "
+            cd /home/vishal/momentum && \
+            echo \"POSTGRES_USER=${{ secrets.POSTGRES_USER }}\" > .env && \
+            echo \"POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}\" >> .env && \
+            echo \"POSTGRES_DB=${{ secrets.POSTGRES_DB }}\" >> .env && \
+            echo \"JWT_SECRET=${{ secrets.JWT_SECRET }}\" >> .env && \
+            echo \"JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }}\" >> .env && \
+            echo \"REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}\" >> .env && \
+            echo \"REFRESH_TOKEN_EXPIRES_IN=${{ secrets.REFRESH_TOKEN_EXPIRES_IN }}\" >> .env && \
+            echo \"FRONTEND_URL=${{ secrets.FRONTEND_URL }}\" >> .env && \
+            echo \"DOCKER_USERNAME=$DOCKER_USERNAME\" >> .env && \
+            docker compose pull && \
+            docker compose up -d
+          "
 
