@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+backend
+installer
+postgres_data
+.env
+.DS_Store

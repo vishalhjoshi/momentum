@@ -5,7 +5,7 @@ echo "Building Momentum Backend..."
 docker build -t momentum-backend:latest ./backend
 
 echo "Building Momentum Frontend..."
-docker build -t momentum-frontend:latest ./frontend
+docker build -f frontend/Dockerfile -t momentum-frontend:latest .
 
 echo "Building Momentum Installer..."
 docker build -t momentum-installer:latest ./installer

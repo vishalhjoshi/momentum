@@ -7,13 +7,13 @@ WORKDIR /app
 RUN npm install -g pnpm@10.11.0
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY frontend/package.json pnpm-lock.yaml ./
 
 # Install dependencies (with cache)
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY . .
+COPY frontend .
 
 # Set API URL for production build
 ARG VITE_API_URL=/api
