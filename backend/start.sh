@@ -17,9 +17,9 @@ if [ -z "$DATABASE_URL" ]; then
     ENCODED_PASS=$(url_encode "$POSTGRES_PASSWORD")
     ENCODED_DB=$(url_encode "$POSTGRES_DB")
     HOST="${POSTGRES_HOST:-postgres}"
-    PORT="${POSTGRES_PORT:-5432}"
+    DB_PORT="${POSTGRES_PORT:-5432}"
 
-    export DATABASE_URL="postgres://${ENCODED_USER}:${ENCODED_PASS}@${HOST}:${PORT}/${ENCODED_DB}?schema=public"
+    export DATABASE_URL="postgres://${ENCODED_USER}:${ENCODED_PASS}@${HOST}:${DB_PORT}/${ENCODED_DB}?schema=public"
   else
     echo "WARNING: DATABASE_URL not set and missing components. Migrations may fail."
   fi
