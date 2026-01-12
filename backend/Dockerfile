@@ -38,7 +38,7 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/prisma ./prisma
 
-COPY start.sh reset-db.sh ./
+COPY start.sh reset-db.sh check-tables.ts ./
 
 # Make start script executable
 RUN chmod +x start.sh reset-db.sh && chown -R node:node /app
