@@ -20,6 +20,7 @@ if [ -z "$DATABASE_URL" ]; then
     DB_PORT="${POSTGRES_PORT:-5432}"
 
     export DATABASE_URL="postgres://${ENCODED_USER}:${ENCODED_PASS}@${HOST}:${DB_PORT}/${ENCODED_DB}?schema=public"
+    echo "Constructed DATABASE_URL: postgres://***:***@${HOST}:${DB_PORT}/${ENCODED_DB}?schema=public"
   else
     echo "WARNING: DATABASE_URL not set and missing components. Migrations may fail."
   fi
