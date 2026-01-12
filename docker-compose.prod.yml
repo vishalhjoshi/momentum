@@ -32,10 +32,9 @@ services:
       REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
       REFRESH_TOKEN_EXPIRES_IN: ${REFRESH_TOKEN_EXPIRES_IN}
       NODE_ENV: production
-      PORT: ${PORT:-3000}
       FRONTEND_URL: ${FRONTEND_URL}
     ports:
-      - "${PORT:-3000}:${PORT:-3000}"
+      - "${PORT:-3000}:3000"
     depends_on:
       postgres:
         condition: service_healthy
