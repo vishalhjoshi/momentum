@@ -16,6 +16,9 @@ if (process.env.POSTGRES_USER && process.env.POSTGRES_PASSWORD && process.env.PO
 
   process.env.DATABASE_URL = `postgres://${user}:${password}@${host}:${port}/${db}?schema=${schema}`
   console.log('Constructed safe DATABASE_URL from environment variables')
+} else {
+  console.warn('Missing POSTGRES_USER, POSTGRES_PASSWORD, or POSTGRES_DB env vars. Skipping safe URL construction.')
+  console.log('Available Env Vars:', Object.keys(process.env).filter(k => k.startsWith('POSTGRES')))
 }
 
 export const prisma =
