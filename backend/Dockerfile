@@ -41,7 +41,7 @@ COPY --from=build /app/pruned/node_modules ./node_modules
 COPY --from=build /app/pruned/package.json ./package.json
 COPY --from=build /app/backend/prisma ./prisma
 
-COPY backend/start.sh ./
+COPY --from=build /app/backend/start.sh ./
 
 # Make start script executable
 RUN chmod +x start.sh && chown -R node:node /app
