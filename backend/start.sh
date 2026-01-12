@@ -30,8 +30,8 @@ if [ -z "$DATABASE_URL" ]; then
   fi
 fi
 
-echo "Running database migrations..."
-npx prisma migrate deploy
+echo "Running database migrations (db push)..."
+npx prisma db push --accept-data-loss
 
 echo "Starting server..."
 npm start
