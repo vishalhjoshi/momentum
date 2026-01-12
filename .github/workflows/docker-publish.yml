@@ -44,7 +44,8 @@ jobs:
       - name: Build and push Backend
         uses: docker/build-push-action@v5
         with:
-          context: ./backend
+          context: .
+          file: backend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/momentum-backend:latest
@@ -53,7 +54,8 @@ jobs:
       - name: Build and push Frontend
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend
+          context: .
+          file: frontend/Dockerfile
           push: true
           build-args: |
             VITE_API_URL=/api
@@ -64,7 +66,8 @@ jobs:
       - name: Build and push Installer
         uses: docker/build-push-action@v5
         with:
-          context: ./installer
+          context: .
+          file: installer/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/momentum-installer:latest
