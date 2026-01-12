@@ -88,7 +88,7 @@ export function JournalEditor({ initialContent = '', initialMood, initialEnergy,
         </div>
         <Slider 
             value={[energy]}
-            onValueChange={(values) => setEnergy(values[0])}
+            onValueChange={(values: number[]) => setEnergy(values[0])}
             min={1}
             max={10}
             step={1}

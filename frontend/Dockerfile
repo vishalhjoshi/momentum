@@ -4,7 +4,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm@latest
+RUN npm install -g pnpm@9
 
 # Copy workspace files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -12,7 +12,9 @@ COPY backend/package.json ./backend/
 COPY frontend/package.json ./frontend/
 
 # Install dependencies (with cache)
-RUN pnpm install --frozen-lockfile --filter momentum-frontend...
+# Enable shamefully-hoist to fix dependency resolution
+RUN pnpm config set shamefully-hoist true
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY frontend ./frontend
