@@ -6,23 +6,25 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm@latest
 
-# Copy package files
-COPY backend/package.json pnpm-lock.yaml ./
+# Copy workspace files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY backend/package.json ./backend/
+COPY frontend/package.json ./frontend/
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies (with cache)
+RUN pnpm install --frozen-lockfile --filter momentum-backend...
 
 # Copy source code
-COPY backend .
+COPY backend ./backend
 
 # Generate Prisma Client
-RUN npx prisma generate
+RUN cd backend && npx prisma generate
 
 # Build the application
-RUN pnpm build
+RUN pnpm --filter momentum-backend build
 
 # Prune development dependencies
-RUN pnpm prune --prod
+RUN pnpm --filter momentum-backend --prod deploy pruned --legacy
 
 # Production stage
 FROM node:20-alpine
@@ -33,12 +35,13 @@ WORKDIR /app
 RUN apk add --no-cache openssl
 
 # Copy built application and production dependencies from build stage
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package.json ./package.json
-COPY --from=build /app/prisma ./prisma
+# Copy built application and production dependencies from build stage
+COPY --from=build /app/backend/dist ./dist
+COPY --from=build /app/pruned/node_modules ./node_modules
+COPY --from=build /app/pruned/package.json ./package.json
+COPY --from=build /app/backend/prisma ./prisma
 
-COPY start.sh ./
+COPY backend/start.sh ./
 
 # Make start script executable
 RUN chmod +x start.sh && chown -R node:node /app
