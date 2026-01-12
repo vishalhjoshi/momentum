@@ -67,3 +67,40 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/momentum-installer:latest
             ${{ github.ref_type == 'tag' && format('{0}/momentum-installer:{1}', secrets.DOCKERHUB_USERNAME, github.ref_name) || '' }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Deploy via SSH
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+
+          # Ensure deployment directory exists
+          ssh $SSH_USER@$SSH_HOST "mkdir -p /home/vishal/momentum"
+
+          # Copy production compose file
+          scp docker-compose.prod.yml $SSH_USER@$SSH_HOST:/home/vishal/momentum/docker-compose.yml
+
+          # Execute deployment
+          ssh $SSH_USER@$SSH_HOST "cd /home/vishal/momentum && export DOCKER_USERNAME=$DOCKER_USERNAME && docker compose pull && docker compose up -d"
+
