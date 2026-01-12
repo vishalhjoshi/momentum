@@ -5,6 +5,9 @@
 
 echo "Starting database reset process..."
 
+# Explicitly unset DATABASE_URL to force construction from individual variables
+unset DATABASE_URL
+
 # Check if DATABASE_URL is set, if not, construct it from parts
 if [ -z "$DATABASE_URL" ]; then
   if [ -n "$POSTGRES_USER" ] && [ -n "$POSTGRES_PASSWORD" ]; then

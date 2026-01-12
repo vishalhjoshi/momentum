@@ -3,6 +3,10 @@
 # wait for postgres to be ready (optional, but handled by docker-compose depends_on healthcheck usually, but good to have retry logic if needed. 
 # For now, we assume depends_on works.)
 
+# Explicitly unset DATABASE_URL to force construction from individual variables
+# This prevents leaking of local/dev DATABASE_URL into the container
+unset DATABASE_URL
+
 # Check if DATABASE_URL is set, if not, construct it from parts
 if [ -z "$DATABASE_URL" ]; then
   if [ -n "$POSTGRES_USER" ] && [ -n "$POSTGRES_PASSWORD" ]; then
