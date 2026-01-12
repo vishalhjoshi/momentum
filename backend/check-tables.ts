@@ -12,9 +12,17 @@ async function main() {
       WHERE table_schema = 'public' 
       ORDER BY table_name;
     `
-        console.log('--- TABLES IN DB ---')
+        console.log('--- TABLES IN DB (public schema) ---')
         console.table(tableResult)
         console.log('--------------------')
+
+        const schemaResult = await prisma.$queryRaw`
+      SELECT schema_name 
+      FROM information_schema.schemata;
+    `
+        console.log('--- SCHEMAS FOUND ---')
+        console.table(schemaResult)
+        console.log('---------------------')
 
         // Check specifically for users table
         interface TableResult {

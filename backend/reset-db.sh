@@ -32,11 +32,11 @@ if [ -z "$DATABASE_URL" ]; then
   fi
 fi
 
-echo "WARNING: This will delete ALL data in the database."
-echo "Running: npx prisma migrate reset --force"
-npx prisma migrate reset --force
+echo "WARNING: This will delete/overwrite data in the database."
+echo "Running: npx prisma db push --accept-data-loss"
+npx prisma db push --accept-data-loss
 
-echo "Reset command finished."
+echo "DB Push command finished."
 
 echo "Verifying tables..."
 # Use tsx to run the check script (since we have check-tables.ts)
